@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界历史学习平台 - 项目文档</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.8; color: #1a1a2e; background: #f8f9fa; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 2.2em; color: #8b6914; margin-bottom: 10px; border-bottom: 3px solid #d4a017; padding-bottom: 15px; }
+  h2 { font-size: 1.6em; color: #8b6914; margin: 40px 0 20px; padding-left: 15px; border-left: 5px solid #d4a017; }
+  h3 { font-size: 1.25em; color: #5a4a1a; margin: 25px 0 12px; }
+  h4 { font-size: 1.1em; color: #6b5a2a; margin: 18px 0 10px; }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 10px 0 15px 25px; }
+  li { margin-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  th { background: #8b6914; color: #fff; padding: 12px; text-align: left; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
+  tr:hover { background: #f5f0e0; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.9em; color: #c7254e; }
+  pre { background: #1a1a2e; color: #e0e0e0; padding: 15px; border-radius: 6px; overflow-x: auto; margin: 15px 0; font-size: 0.9em; line-height: 1.6; }
+  pre code { background: none; color: inherit; padding: 0; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.85em; font-weight: 600; margin-right: 5px; }
+  .badge-new { background: #d4edda; color: #155724; }
+  .badge-core { background: #fff3cd; color: #856404; }
+  .badge-fixed { background: #f8d7da; color: #721c24; }
+  .toc { background: #fff; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin: 20px 0 30px; }
+  .toc h3 { margin-top: 0; color: #8b6914; }
+  .toc ol { columns: 2; column-gap: 30px; }
+  .toc a { color: #5a4a1a; text-decoration: none; }
+  .toc a:hover { color: #d4a017; text-decoration: underline; }
+  .feature-card { background: #fff; padding: 18px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); margin-bottom: 15px; border-left: 4px solid #d4a017; }
+  .feature-card h4 { margin-top: 0; color: #8b6914; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .toc ol { columns: 1; } }
+  .highlight { background: #fff8e1; padding: 15px; border-radius: 6px; border-left: 4px solid #ffc107; margin: 15px 0; }
+  .warning { background: #fff3cd; padding: 15px; border-radius: 6px; border-left: 4px solid #ffc107; margin: 15px 0; }
+  .info { background: #d1ecf1; padding: 15px; border-radius: 6px; border-left: 4px solid #17a2b8; margin: 15px 0; }
+  .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; color: #888; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📜 世界历史学习平台 - 项目文档</h1>
+<p style="color: #666; margin-bottom: 20px;">版本：V3.0 | 更新日期：2026-09-06 | 文档状态：已同步最新代码</p>
+
+<div class="toc">
+<h3>📑 文档导航</h3>
+<ol>
+  <li><a href="#overview">项目概述</a></li>
+  <li><a href="#features">核心功能（12大模块）</a></li>
+  <li><a href="#architecture">技术架构</a></li>
+  <li><a href="#database">数据模型</a></li>
+  <li><a href="#pages">页面导航</a></li>
+  <li><a href="#content">内容分级体系</a></li>
+  <li><a href="#deploy">部署快速指南</a></li>
+  <li><a href="#changelog">更新日志</a></li>
+</ol>
+</div>
+
+<!-- ==================== 1. 项目概述 ==================== -->
+<h2 id="overview">一、项目概述</h2>
+
+<h3>1.1 项目背景</h3>
+<p>历史学习往往枯燥乏味，传统的历史教材以文字为主，缺乏互动性和可视化呈现。本项目旨在打造一个<strong>沉浸式、互动式、分级化</strong>的世界历史学习平台，通过时间线、地图、人物关系图谱、互动测验等多种形式，让历史学习变得生动有趣。</p>
+
+<h3>1.2 项目目标</h3>
+<ul>
+  <li>✅ 覆盖中国史和世界史的核心内容，按教材体系分级</li>
+  <li>✅ 提供交互式时间线、历史地图、人物关系网络图谱等可视化工具</li>
+  <li>✅ 支持四级难度分级（幼儿园/小学/初中/高中），适配不同年龄段</li>
+  <li>✅ 提供学习进度追踪、笔记、收藏、测验、成就系统等学习辅助功能</li>
+  <li>✅ 支持本地保存与云端同步双模式，用户可自主选择</li>
+  <li>✅ 响应式设计，适配手机端、平板端、电脑端</li>
+</ul>
+
+<h3>1.3 目标用户</h3>
+<table>
+  <tr><th>用户群体</th><th>难度等级</th><th>核心需求</th></tr>
+  <tr><td>学龄前儿童</td><td>幼儿园</td><td>趣味故事、简单概念、图文并茂</td></tr>
+  <tr><td>小学生</td><td>小学</td><td>基础知识、趣味互动、简单测验</td></tr>
+  <tr><td>初中生</td><td>初中</td><td>系统知识、时间线、事件因果</td></tr>
+  <tr><td>高中生</td><td>高中</td><td>深度分析、人物关系、专题研究</td></tr>
+  <tr><td>历史爱好者</td><td>全等级</td><td>拓展阅读、地图探索、关系图谱</td></tr>
+</table>
+
+<!-- ==================== 2. 核心功能 ==================== -->
+<h2 id="features">二、核心功能（12大模块）</h2>
+
+<div class="grid-2">
+
+<div class="feature-card">
+<h4>1. 交互式时间线 <span class="badge badge-core">核心</span></h4>
+<p>按时间顺序展示所有历史事件，支持缩放、拖拽、筛选。点击事件节点可查看详情，已读事件有标记。</p>
+<ul>
+  <li>按时代/地区筛选</li>
+  <li>事件节点颜色区分时代</li>
+  <li>已读/未读状态标记</li>
+  <li>移动端可滑动浏览</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>2. 事件百科 <span class="badge badge-core">核心</span></h4>
+<p>每个历史事件包含详细的背景、过程、影响、关键人物、相关事件等内容，按四级难度分级呈现。</p>
+<ul>
+  <li>四级难度内容切换</li>
+  <li>背景/过程/影响完整结构</li>
+  <li>关键人物关联</li>
+  <li>相关事件推荐</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>3. 人物百科 <span class="badge badge-core">核心</span></h4>
+<p>历史人物详细介绍，包含生平、主要成就、历史评价等，支持按朝代/地区筛选。</p>
+<ul>
+  <li>人物详情页</li>
+  <li>按朝代/地区筛选</li>
+  <li>人物关系关联</li>
+  <li>相关事件推荐</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>4. 人物关系网络图谱 <span class="badge badge-new">新增</span></h4>
+<p>使用 ECharts 力导向图展示历史人物之间的关系网络，支持按朝代筛选、点击查看详情、缩放拖拽。</p>
+<ul>
+  <li>力导向图自动布局</li>
+  <li>15种关系类型（君臣/师生/对手/政敌/父子等）</li>
+  <li>按朝代筛选</li>
+  <li>点击节点查看人物详情和关系列表</li>
+  <li>支持缩放、拖拽、漫游</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>5. 历史地图</h4>
+<p>历史地图展示，支持按时代切换，直观展示不同历史时期的疆域、政权分布。</p>
+<ul>
+  <li>按时代切换地图</li>
+  <li>疆域/政权标注</li>
+  <li>重要地点标记</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>6. 互动测验</h4>
+<p>按难度分级的历史知识测验，包含选择题，完成后显示得分和答案解析。</p>
+<ul>
+  <li>四级难度题库</li>
+  <li>选择题型</li>
+  <li>即时评分和解析</li>
+  <li>测验记录保存</li>
+  <li>错题本功能</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>7. 学习笔记 <span class="badge badge-core">核心</span></h4>
+<p>支持在事件/人物详情页添加笔记，使用 Tiptap 3 富文本编辑器，支持文字、列表、链接等格式。</p>
+<ul>
+  <li>Tiptap 3 富文本编辑器</li>
+  <li>按事件/人物关联笔记</li>
+  <li>笔记列表管理</li>
+  <li>搜索和筛选</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>8. 收藏功能</h4>
+<p>收藏感兴趣的事件和人物，方便后续复习和查阅。</p>
+<ul>
+  <li>事件/人物收藏</li>
+  <li>收藏列表管理</li>
+  <li>按类型筛选</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>9. 学习进度追踪 <span class="badge badge-core">核心</span></h4>
+<p>自动追踪学习进度，包括已读事件/人物、学习时长、连续学习天数、时代完成度等。</p>
+<ul>
+  <li>已读事件/人物统计</li>
+  <li>学习时长自动计时</li>
+  <li>连续学习天数（打卡）</li>
+  <li>时代完成度进度条</li>
+  <li>学习日历热力图</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>10. 成就系统</h4>
+<p>根据学习行为解锁各种成就徽章，激励用户持续学习。</p>
+<ul>
+  <li>多种成就徽章</li>
+  <li>解锁条件追踪</li>
+  <li>成就展示墙</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>11. 双模式存储 <span class="badge badge-new">新增</span></h4>
+<p>支持本地保存和云端同步两种模式，用户可在设置中自主选择。云端模式下数据自动同步，支持多设备访问。</p>
+<ul>
+  <li>本地模式：数据保存在浏览器 localStorage</li>
+  <li>云端模式：数据同步到服务器，支持多设备</li>
+  <li>手动同步按钮</li>
+  <li>数据导入/导出功能</li>
+  <li>按类型清除数据（本地/云端）</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<h4>12. 搜索功能</h4>
+<p>全局搜索历史事件和人物，支持关键词模糊匹配。</p>
+<ul>
+  <li>事件/人物全局搜索</li>
+  <li>关键词高亮</li>
+  <li>搜索历史记录</li>
+</ul>
+</div>
+
+</div>
+
+<!-- ==================== 3. 技术架构 ==================== -->
+<h2 id="architecture">三、技术架构</h2>
+
+<h3>3.1 整体架构</h3>
+<pre>
+┌─────────────────────────────────────────────────────────┐
+│                     用户浏览器（前端）                      │
+│  React 19 + TypeScript + Vite 7 + Tailwind CSS 4       │
+│  Zustand 状态管理 + React Router 6 + ECharts + Tiptap 3 │
+└──────────────────────────┬──────────────────────────────┘
+                           │ HTTP / RESTful API
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│                    后端服务（Node.js）                     │
+│  Express + better-sqlite3 + JWT + bcryptjs + helmet    │
+│  13个路由模块 + 中间件认证 + 数据同步                    │
+└──────────────────────────┬──────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│                   SQLite 数据库（本地文件）                │
+│  16张数据表：用户/进度/笔记/收藏/测验/成就/学习时长/人物关系等 │
+└─────────────────────────────────────────────────────────┘
+</pre>
+
+<h3>3.2 前端技术栈</h3>
+<table>
+  <tr><th>技术</th><th>版本</th><th>用途</th></tr>
+  <tr><td>React</td><td>19.x</td><td>UI 框架</td></tr>
+  <tr><td>TypeScript</td><td>5.x</td><td>类型安全</td></tr>
+  <tr><td>Vite</td><td>7.x</td><td>构建工具</td></tr>
+  <tr><td>Tailwind CSS</td><td>4.x</td><td>样式框架</td></tr>
+  <tr><td>Radix UI</td><td>最新</td><td>无样式组件库</td></tr>
+  <tr><td>Zustand</td><td>4.x</td><td>状态管理</td></tr>
+  <tr><td>React Router</td><td>6.x</td><td>路由管理</td></tr>
+  <tr><td>ECharts</td><td>5.x</td><td>图表（人物关系图谱）</td></tr>
+  <tr><td>Tiptap</td><td>3.x</td><td>富文本编辑器</td></tr>
+  <tr><td>Lucide React</td><td>最新</td><td>图标库</td></tr>
+</table>
+
+<h3>3.3 后端技术栈</h3>
+<table>
+  <tr><th>技术</th><th>版本</th><th>用途</th></tr>
+  <tr><td>Node.js</td><td>>=22.x</td><td>运行时</td></tr>
+  <tr><td>Express</td><td>4.x</td><td>Web 框架</td></tr>
+  <tr><td>better-sqlite3</td><td>11.x</td><td>SQLite 数据库驱动</td></tr>
+  <tr><td>jsonwebtoken</td><td>最新</td><td>JWT 认证</td></tr>
+  <tr><td>bcryptjs</td><td>最新</td><td>密码加密</td></tr>
+  <tr><td>helmet</td><td>最新</td><td>安全头设置</td></tr>
+  <tr><td>cors</td><td>最新</td><td>跨域支持</td></tr>
+  <tr><td>express-rate-limit</td><td>最新</td><td>限流</td></tr>
+</table>
+
+<h3>3.4 后端路由模块（13个）</h3>
+<table>
+  <tr><th>路由文件</th><th>基础路径</th><th>功能</th></tr>
+  <tr><td>auth.js</td><td>/api/auth</td><td>用户注册/登录/登出/信息更新</td></tr>
+  <tr><td>events.js</td><td>/api/events</td><td>历史事件查询</td></tr>
+  <tr><td>people.js</td><td>/api/people</td><td>历史人物查询 + 关系网络图谱</td></tr>
+  <tr><td>progress.js</td><td>/api/progress</td><td>学习进度同步</td></tr>
+  <tr><td>notes.js</td><td>/api/notes</td><td>学习笔记 CRUD</td></tr>
+  <tr><td>favorites.js</td><td>/api/favorites</td><td>收藏管理</td></tr>
+  <tr><td>quizzes.js</td><td>/api/quizzes</td><td>测验提交/记录查询</td></tr>
+  <tr><td>achievements.js</td><td>/api/achievements</td><td>成就系统</td></tr>
+  <tr><td>studySessions.js</td><td>/api/study-sessions</td><td>学习时长统计</td></tr>
+  <tr><td>stats.js</td><td>/api/stats</td><td>数据统计概览</td></tr>
+  <tr><td>sync.js</td><td>/api/sync</td><td>数据同步（push/pull/full）</td></tr>
+  <tr><td>data.js</td><td>/api/data</td><td>数据清除（按类型）</td></tr>
+  <tr><td>health.js</td><td>/api/health</td><td>健康检查</td></tr>
+</table>
+
+<!-- ==================== 4. 数据模型 ==================== -->
+<h2 id="database">四、数据模型</h2>
+
+<h3>4.1 数据库表结构（16张表）</h3>
+<table>
+  <tr><th>表名</th><th>用途</th><th>核心字段</th></tr>
+  <tr><td>users</td><td>用户表</td><td>id, username, email, password_hash, default_level, storage_mode, theme, font_size</td></tr>
+  <tr><td>learning_progress</td><td>学习进度表</td><td>id, user_id, content_type, content_id, status, level, time_spent, first_read_at, completed_at</td></tr>
+  <tr><td>notes</td><td>笔记表</td><td>id, user_id, content_type, content_id, title, content, tags, created_at, updated_at, deleted</td></tr>
+  <tr><td>favorites</td><td>收藏表</td><td>id, user_id, content_type, content_id, created_at</td></tr>
+  <tr><td>quiz_records</td><td>测验记录表</td><td>id, user_id, quiz_type, level, total_questions, correct_count, score, time_spent, created_at</td></tr>
+  <tr><td>wrong_questions</td><td>错题本表</td><td>id, user_id, question_id, created_at</td></tr>
+  <tr><td>achievements</td><td>成就表</td><td>id, user_id, badge_id, unlocked_at</td></tr>
+  <tr><td>study_sessions</td><td>学习时长表</td><td>id, user_id, start_time, end_time, duration, content_type, content_id, session_type</td></tr>
+  <tr><td>daily_stats</td><td>每日统计表</td><td>id, user_id, stat_date, study_duration, events_read, quizzes_taken</td></tr>
+  <tr><td>events</td><td>历史事件表</td><td>id, title, era, region, start_year, end_year, location, content(分级JSON), key_figure_ids, related_event_ids</td></tr>
+  <tr><td>people</td><td>历史人物表</td><td>id, name, dynasty, region, role, birth_year, death_year, level_contents(分级JSON)</td></tr>
+  <tr><td>person_relations</td><td>人物关系表 <span class="badge badge-new">新增</span></td><td>id, person_id, related_person_id, relation_type, description, start_year, end_year</td></tr>
+  <tr><td>quizzes</td><td>测验题库表</td><td>id, level, era, question, options, answer, explanation</td></tr>
+  <tr><td>sync_log</td><td>同步日志表</td><td>id, user_id, entity_type, entity_id, action, timestamp</td></tr>
+  <tr><td>badge_definitions</td><td>徽章定义表</td><td>id, name, description, category, condition(JSON), icon</td></tr>
+  <tr><td>refresh_tokens</td><td>刷新令牌表</td><td>id, user_id, token, expires_at, created_at</td></tr>
+</table>
+
+<h3>4.2 人物关系类型（15种）</h3>
+<p>君臣、师生、对手、政敌、父子、兄弟、夫妻、祖孙、朋友、盟友、反叛、继承、同学、同时代思想家、其他</p>
+
+<!-- ==================== 5. 页面导航 ==================== -->
+<h2 id="pages">五、页面导航</h2>
+
+<h3>5.1 页面列表（18个页面）</h3>
+<table>
+  <tr><th>页面</th><th>路由</th><th>说明</th></tr>
+  <tr><td>首页</td><td>/</td><td>学习概览、推荐内容、快捷入口</td></tr>
+  <tr><td>时间线</td><td>/timeline</td><td>交互式历史时间线</td></tr>
+  <tr><td>事件详情</td><td>/event/:id</td><td>历史事件详细内容（四级难度）</td></tr>
+  <tr><td>人物列表</td><td>/people</td><td>历史人物列表（按朝代筛选）</td></tr>
+  <tr><td>人物详情</td><td>/person/:id</td><td>历史人物详细内容</td></tr>
+  <tr><td>人物关系图谱 <span class="badge badge-new">新增</span></td><td>/person-network</td><td>人物关系网络力导向图</td></tr>
+  <tr><td>历史地图</td><td>/map</td><td>历史地图展示</td></tr>
+  <tr><td>测验中心</td><td>/quiz</td><td>互动测验列表</td></tr>
+  <tr><td>测验答题</td><td>/quiz/:id</td><td>测验答题页面</td></tr>
+  <tr><td>测验结果</td><td>/quiz/result/:id</td><td>测验结果和解析</td></tr>
+  <tr><td>笔记列表</td><td>/notes</td><td>学习笔记管理</td></tr>
+  <tr><td>笔记编辑</td><td>/notes/:id</td><td>笔记编辑（富文本）</td></tr>
+  <tr><td>收藏列表</td><td>/favorites</td><td>收藏管理</td></tr>
+  <tr><td>搜索</td><td>/search</td><td>全局搜索</td></tr>
+  <tr><td>我的</td><td>/profile</td><td>个人中心（学习统计、成就）</td></tr>
+  <tr><td>设置</td><td>/settings</td><td>设置（存储模式、主题、字号、数据管理）</td></tr>
+  <tr><td>登录/注册</td><td>/auth</td><td>用户认证</td></tr>
+  <tr><td>错题本</td><td>/wrong-questions</td><td>错题复习</td></tr>
+</table>
+
+<h3>5.2 导航结构</h3>
+<ul>
+  <li><strong>桌面端</strong>：顶部导航栏（首页、时间线、人物关系、历史地图、测验、我的）</li>
+  <li><strong>移动端</strong>：底部导航栏（首页、时间线、人物关系、测验、我的）</li>
+</ul>
+
+<!-- ==================== 6. 内容分级体系 ==================== -->
+<h2 id="content">六、内容分级体系</h2>
+
+<h3>6.1 四级难度</h3>
+<table>
+  <tr><th>等级</th><th>目标年龄</th><th>内容特点</th><th>语言风格</th></tr>
+  <tr><td>幼儿园</td><td>3-6岁</td><td>简单故事、趣味插图、基础概念</td><td>口语化、拟人化、短句</td></tr>
+  <tr><td>小学</td><td>7-12岁</td><td>基础知识、时间地点人物、简单因果</td><td>通俗易懂、生动有趣</td></tr>
+  <tr><td>初中</td><td>13-15岁</td><td>系统知识、事件背景、影响分析</td><td>规范严谨、逻辑清晰</td></tr>
+  <tr><td>高中</td><td>16-18岁</td><td>深度分析、多角度评价、专题研究</td><td>学术化、思辨性</td></tr>
+</table>
+
+<h3>6.2 内容结构（每个事件）</h3>
+<ul>
+  <li><strong>summary</strong>：内容摘要</li>
+  <li><strong>background</strong>：历史背景</li>
+  <li><strong>process</strong>：事件过程</li>
+  <li><strong>impact</strong>：历史影响</li>
+  <li><strong>funFacts</strong>：趣味知识（低等级）</li>
+  <li><strong>keyFigures</strong>：关键人物</li>
+  <li><strong>relatedEventIds</strong>：相关事件</li>
+</ul>
+
+<h3>6.3 当前数据规模</h3>
+<table>
+  <tr><th>数据类型</th><th>数量</th><th>说明</th></tr>
+  <tr><td>历史事件</td><td>37个</td><td>覆盖中国古代史核心事件（先秦至明清）</td></tr>
+  <tr><td>历史人物</td><td>44位</td><td>中国古代史重要人物</td></tr>
+  <tr><td>人物关系</td><td>33条</td><td>15种关系类型</td></tr>
+  <tr><td>测验题目</td><td>内置题库</td><td>四级难度分级</td></tr>
+</table>
+
+<div class="info">
+<strong>💡 数据扩充说明：</strong>当前数据以中国古代史为主，后续可继续扩充中国近代史、中国现代史、世界古代史、世界近代史、世界现代史等内容。数据导入工具位于 <code>backend/utils/</code> 目录。
+</div>
+
+<!-- ==================== 7. 部署快速指南 ==================== -->
+<h2 id="deploy">七、部署快速指南</h2>
+
+<h3>7.1 环境要求</h3>
+<table>
+  <tr><th>项目</th><th>要求</th><th>说明</th></tr>
+  <tr><td>Node.js</td><td>>= 22.0.0</td><td>前端构建需要，后端建议同版本</td></tr>
+  <tr><td>npm</td><td>>= 10.0.0</td><td>随 Node.js 安装</td></tr>
+  <tr><td>操作系统</td><td>Windows / macOS / Linux</td><td>跨平台支持</td></tr>
+  <tr><td>内存</td><td>>= 4GB</td><td>前端构建建议 8GB</td></tr>
+</table>
+
+<div class="warning">
+<strong>⚠️ 重要：</strong>前端项目要求 Node.js >= 22，如果系统版本较低，建议使用便携版 Node，不修改系统环境变量。便携版路径：<code>E:\ProgramData\historyApp\node-v22\</code>
+</div>
+
+<h3>7.2 快速启动（Windows）</h3>
+<ol>
+  <li>双击项目根目录下的 <code>启动服务.bat</code></li>
+  <li>等待后端服务启动（约3-5秒）</li>
+  <li>浏览器访问 <code>http://localhost:3000</code></li>
+  <li>默认管理员账号：<code>admin@history.com</code> / <code>admin123456</code></li>
+</ol>
+
+<h3>7.3 手动部署步骤</h3>
+<h4>后端部署</h4>
+<pre><code>cd backend
+npm install
+node server.js</code></pre>
+
+<h4>前端构建</h4>
+<pre><code>cd front
+npm install --ignore-scripts
+$env:NODE_ENV="production"
+node node_modules/vite/bin/vite.js build --config vite.config.ts</code></pre>
+
+<div class="info">
+<strong>💡 Windows 构建注意：</strong>不能使用 <code>npm run build:client</code>（Unix 语法在 Windows 报错），必须使用上述命令手动构建。构建后需要替换 <code>index.html</code> 中的11个平台模板变量。
+</div>
+
+<h3>7.4 手机端访问</h3>
+<ol>
+  <li>确保手机和电脑在同一局域网</li>
+  <li>查看电脑局域网 IP（如 <code>192.168.2.5</code>）</li>
+  <li>手机浏览器访问 <code>http://192.168.2.5:3000</code></li>
+</ol>
+
+<!-- ==================== 8. 更新日志 ==================== -->
+<h2 id="changelog">八、更新日志</h2>
+
+<h3>V3.0（2026-09-06）<span class="badge badge-new">最新</span></h3>
+<ul>
+  <li><strong>新增</strong>：人物关系网络图谱页面（ECharts 力导向图，44位人物，33条关系，15种关系类型）</li>
+  <li><strong>新增</strong>：后端人物关系 API（人物列表、详情、关系网络图谱、批量导入）</li>
+  <li><strong>新增</strong>：person_relations 数据库表</li>
+  <li><strong>新增</strong>：数据导入功能（JSON 格式导入学习数据）</li>
+  <li><strong>新增</strong>：按类型清除数据功能（学习进度/收藏/笔记/测验/错题/成就/学习时长，支持本地/云端选择）</li>
+  <li><strong>修复</strong>：学习进度云端同步（isCloudMode 从内存状态读取，避免 localStorage 写入失败导致不同步）</li>
+  <li><strong>修复</strong>：学习时长同步（4处 API 接口不匹配 Bug：字段名、单位、返回格式）</li>
+  <li><strong>修复</strong>：手动同步逻辑（先推送本地到云端，再拉取合并，之前只拉取）</li>
+  <li><strong>修复</strong>：loadFromCloud 合并逻辑（取并集，避免云端空数据清空本地进度）</li>
+  <li><strong>修复</strong>：退出登录不再重置存储模式</li>
+  <li><strong>修复</strong>：移动端人物关系图谱白屏（容器高度计算 + 手动初始化 ECharts）</li>
+  <li><strong>修复</strong>：人物详情弹窗内容溢出（最大高度 + 滚动 + 文字换行）</li>
+  <li><strong>修复</strong>：移动端底部导航添加人物关系入口</li>
+</ul>
+
+<h3>V2.0（2026-09-05）</h3>
+<ul>
+  <li><strong>新增</strong>：真实后端云端同步（Node.js + Express + SQLite + JWT）</li>
+  <li><strong>新增</strong>：双模式存储（本地保存/云端同步，用户可在设置中选择）</li>
+  <li><strong>新增</strong>：学习时长自动计时功能</li>
+  <li><strong>新增</strong>：Tiptap 3 富文本编辑器（替换原编辑器）</li>
+  <li><strong>扩充</strong>：历史事件数据从30个扩充至37个</li>
+  <li><strong>修复</strong>：手机端白屏问题（CSP upgrade-insecure-requests 导致主JS加载失败）</li>
+  <li><strong>修复</strong>：登录接口字段不匹配（account/email 同时支持）</li>
+  <li><strong>修复</strong>：密码输入框双眼睛图标（浏览器自带 + 自定义重复）</li>
+  <li><strong>修复</strong>：设置页面登录状态显示（从 useAppStore 获取 currentUser）</li>
+  <li><strong>修复</strong>：时间线圆钮无法交互</li>
+  <li><strong>修复</strong>：右下角平台水印悬浮组件</li>
+</ul>
+
+<h3>V1.0（2026-09-04）</h3>
+<ul>
+  <li><strong>初始版本</strong>：世界历史学习平台基础功能</li>
+  <li>交互式时间线、事件/人物百科、历史地图</li>
+  <li>互动测验、学习笔记、收藏功能</li>
+  <li>四级难度分级（幼儿园/小学/初中/高中）</li>
+  <li>学习进度追踪、成就系统</li>
+  <li>响应式设计（手机/平板/电脑）</li>
+</ul>
+
+<div class="footer">
+  <p>世界历史学习平台 | 项目文档 | 版本 V3.0 | 更新于 2026-09-06</p>
+  <p>本文档随代码同步更新，如有疑问请参考代码注释或联系开发团队</p>
+</div>
+
+</div>
+</body>
+</html>

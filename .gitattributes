@@ -1,0 +1,86 @@
+# ============================================
+# 换行符设置（Windows / macOS / Linux 兼容）
+# ============================================
+# 文本文件统一使用 LF 换行符（Git 仓库内）
+* text=auto eol=lf
+
+# Windows 批处理文件必须使用 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# PowerShell 脚本使用 CRLF（Windows 环境）
+*.ps1 text eol=crlf
+
+# Shell 脚本使用 LF
+*.sh text eol=lf
+
+# ============================================
+# 二进制文件（不进行换行符转换）
+# ============================================
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.ico binary
+*.webp binary
+*.svg binary
+
+*.mp3 binary
+*.mp4 binary
+*.wav binary
+*.ogg binary
+
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+
+*.pdf binary
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
+*.ppt binary
+*.pptx binary
+
+*.zip binary
+*.rar binary
+*.7z binary
+*.tar binary
+*.gz binary
+
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# ============================================
+# 代码文件（明确指定为文本）
+# ============================================
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.json text
+*.html text
+*.css text
+*.scss text
+*.less text
+*.vue text
+*.md text
+*.yml text
+*.yaml text
+*.xml text
+*.sql text
+*.env text
+*.gitignore text
+*.gitattributes text
+
+# ============================================
+# GitHub Linguist 语言统计（可选）
+# ============================================
+# 忽略文档目录的语言统计
+# docs/* linguist-documentation
+# 忽略构建产物
+# dist/* linguist-generated

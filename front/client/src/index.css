@@ -1,0 +1,33 @@
+@import '@lark-apaas/client-toolkit/lib/index.css';
+@import "tw-animate-css";
+@import "./tailwind-theme.css";
+@import "./typography.css";
+
+@source "../../node_modules/streamdown/dist/*.js";
+@config "../../tailwind.config.ts";
+
+/* 移除平台注入的右下角悬浮组件（投诉与举报/豆包AI生成/妙搭水印） */
+[data-custom-element="doubao-watermark-mobile"],
+[data-custom-element*="doubao-watermark"],
+[data-custom-element*="miaoda-watermark"] {
+  display: none !important;
+}
+
+/* 隐藏所有固定在右下角的平台水印悬浮元素 */
+div[style*="position: fixed"][style*="right:"][style*="bottom:"][style*="z-index: 9999"] {
+  display: none !important;
+}
+
+/* 隐藏浏览器自带的密码显示按钮（Edge/Chrome/IE），避免与自定义按钮重复 */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}

@@ -1,0 +1,9 @@
+前端静态文件已托管: E:\ProgramData\historyApp\world-history-app\front\dist\client
+========================================
+  世界历史学习应用 - 后端服务
+========================================
+  环境: development
+  端口: 3000
+  数据库: ./data/history.db
+  健康检查: http://localhost:3000/api/health
+========================================
