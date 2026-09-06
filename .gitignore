@@ -133,3 +133,16 @@ node-v22/
 # 后端上传目录（如果有）
 backend/uploads/
 backend/public/uploads/
+
+# ============================================
+# Java 后端
+# ============================================
+target/
+**/target/
+*.class
+*.jar
+*.war
+backend-java/data/history.db
+backend-java/data/history.db-*
+backend-java/data/*.db
+backend-java/startup*.log

@@ -1,0 +1,68 @@
+server:
+  port: 3000
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: world-history-backend
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:./data/history.db
+    username: admin
+    password: admin123456
+  # Jackson 全局配置：使用下划线命名（与 Node.js 版保持一致）
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  # 静态资源配置（托管前端构建产物）
+  web:
+    resources:
+      static-locations: classpath:/static/,file:../front/dist/client/
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.history.app.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: assign_uuid
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT 配置
+jwt:
+  secret: world-history-platform-secret-key-2024-please-change-in-production
+  expiration: 604800000  # 7天（毫秒）
+  header: Authorization
+  prefix: "Bearer "
+
+# 应用自定义配置
+app:
+  default-admin:
+    email: admin@history.com
+    password: admin123456
+    username: admin
+  storage:
+    data-path: ./data
+
+# Swagger 配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
+# 日志配置
+logging:
+  level:
+    com.history.app: debug
+    org.springframework.security: info
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
